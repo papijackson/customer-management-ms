@@ -20,6 +20,14 @@ pipeline {
              steps {
               sh ' mvn clean compile'
              }
+             post {
+                 always {
+                   stash(name: 'artifact', includes: 'target/*.war')
+                   stash(name: 'pom', includes: 'pom.xml')
+                   // to add artifacts in jenkins pipeline tab (UI)
+                   archiveArtifacts 'target/*.war'
+                  }
+               }
 
          }
 
