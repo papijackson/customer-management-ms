@@ -18,7 +18,7 @@ pipeline {
               }
              }
              steps {
-              sh ' mvn clean package'
+              sh ' mvn clean package -DskipTests=true'
              }
              post {
                  always {
@@ -31,7 +31,7 @@ pipeline {
 
          }
 
-         stage('Unit Tests') {
+        stage('Unit Tests') {
             agent {
              docker {
               image 'maven:3.6.0-jdk-8-alpine'
@@ -47,6 +47,20 @@ pipeline {
               junit 'target/surefire-reports/**/*.xml'
              }
             }
-          }
+        }
+
+        stage('Code Quality Analysis') {
+            echo 'comming soon'
+        }
+
+        stage('Build Image') {
+            dockerImage = docker.build("pj/customer-service:0.0.2")
+        }
+
+        stage('Run Container') {
+            dockerImage.run()
+        }
+
+
     }
 }
