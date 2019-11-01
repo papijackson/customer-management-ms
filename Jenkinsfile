@@ -18,7 +18,7 @@ pipeline {
               }
              }
              steps {
-              sh ' mvn clean compile'
+              sh ' mvn clean package'
              }
              post {
                  always {
