@@ -50,8 +50,10 @@ pipeline {
         }
 
         stage('Run container') {
-            def dockerImage = docker.build("pj/customer-service:0.0.2")
-            dockerImage.run()
+             script {
+                 def dockerImage = docker.build("pj/customer-service:0.0.2")
+                  dockerImage.run()
+             }
         }
 
     }
