@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: customer-service
+  cloud:
+    consul:
+      host: 192.168.1.43
+      port: 8500
+      discovery:
+        preferIpAddress: true
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 15s
+        tags: customer
+        instanceId: ${spring.application.name}:instance_${random.value}
