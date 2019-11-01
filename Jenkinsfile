@@ -52,7 +52,7 @@ pipeline {
         stage('Run container') {
             steps {
                 script {
-                     def dockerImage = docker.build("pj/customer-service:0.0.2", "--build-arg JAR_FILE=customer-service-0.0.1-SNAPSHOT .")
+                     def dockerImage = docker.build("pj/customer-service:0.0.2", "--build-arg JAR_FILE=customer-service-0.0.1-SNAPSHOT.jar .")
                      dockerImage.run()
                  }
             }
