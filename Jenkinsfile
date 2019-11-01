@@ -20,12 +20,15 @@ pipeline {
              steps {
               sh ' mvn clean compile'
              }
-             success {
-              stash(name: 'artifact', includes: 'target/*.war')
-              stash(name: 'pom', includes: 'pom.xml')
-              // to add artifacts in jenkins pipeline tab (UI)
-              archiveArtifacts 'target/*.war'
+             post {
+               success {
+                 stash(name: 'artifact', includes: 'target/*.war')
+                 stash(name: 'pom', includes: 'pom.xml')
+                 // to add artifacts in jenkins pipeline tab (UI)
+                 archiveArtifacts 'target/*.war'
+                }
              }
+
          }
 
          stage('Unit Tests') {
@@ -44,6 +47,6 @@ pipeline {
               junit 'target/surefire-reports/**/*.xml'
              }
             }
-           }
+          }
     }
 }
