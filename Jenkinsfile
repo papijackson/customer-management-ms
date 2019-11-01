@@ -49,18 +49,10 @@ pipeline {
             }
         }
 
-        stage('Code Quality Analysis') {
-            echo 'comming soon'
-        }
-
-        stage('Build Image') {
-            dockerImage = docker.build("pj/customer-service:0.0.2")
-        }
-
-        stage('Run Container') {
+        stage('Run container') {
+            def dockerImage = docker.build("pj/customer-service:0.0.2")
             dockerImage.run()
         }
-
 
     }
 }
