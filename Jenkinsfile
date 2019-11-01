@@ -20,6 +20,33 @@ pipeline {
              steps {
               sh ' mvn clean compile'
              }
+             success {
+              stash(name: 'artifact', includes: 'target/*.war')
+              stash(name: 'pom', includes: 'pom.xml')
+              // to add artifacts in jenkins pipeline tab (UI)
+              archiveArtifacts 'target/*.war'
+             }
          }
+
+         stage('Unit Tests') {
+            when {
+             anyOf { branch 'master'; branch 'develop' }
+            }
+            agent {
+             docker {
+              image 'maven:3.6.0-jdk-8-alpine'
+              args '-v /root/.m2/repository:/root/.m2/repository'
+              reuseNode true
+             }
+            }
+            steps {
+             sh 'mvn test'
+            }
+            post {
+             always {
+              junit 'target/surefire-reports/**/*.xml'
+             }
+            }
+           }
     }
 }
