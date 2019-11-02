@@ -55,7 +55,7 @@ pipeline {
             }
         }
 
-        stage('Quality code analysis') {
+       /* stage('Quality code analysis') {
              agent {
               docker {
                image 'maven:3.6.0-jdk-8-alpine'
@@ -66,7 +66,7 @@ pipeline {
              steps {
               sh " mvn sonar:sonar -Dsonar.host.url=$SONARQUBE_URL:$SONARQUBE_PORT"
              }
-         }
+         }*/
 
         stage('Run container') {
             steps {
