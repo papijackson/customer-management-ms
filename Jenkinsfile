@@ -53,7 +53,7 @@ pipeline {
             steps {
                 script {
                      def dockerImage = docker.build("pj/customer-service:0.0.2", "--build-arg JAR_FILE=customer-service-0.0.1-SNAPSHOT.jar .")
-                     dockerImage.run().withRun('-p 3000:3000', '--name customer-service-0.0.1-SNAPSHOT')
+                     dockerImage.run().withRun('-p 8085:8080', '--name customer-service-0.0.1-SNAPSHOT')
                  }
             }
         }
